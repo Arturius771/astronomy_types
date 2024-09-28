@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="astronomy_types", 
     version="1.0.0",
-    py_modules=["astronomy_typest"],  # without .py
+    py_modules=["astronomy_types"],  # without .py
     author="Artur Foden",
     author_email="",
     description="Type hints for Python astronomy projects",
