@@ -4,7 +4,9 @@ It felt plausible that it would be useful in other projects as well, so it has b
 
 # Install
 
-`pip install astronomy_types`
+`pip install astronomy-types`
+
+`import astronomy_types`
 
 # Updating and Repackaging the Project with `setuptools`
 
