@@ -61,3 +61,5 @@ python3 setup.py sdist bdist_wheel
 ```bash
 twine upload dist/*
 ```
+
+And enter in the API token
