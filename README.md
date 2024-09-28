@@ -16,13 +16,11 @@ To update and repackage this Python project using `setuptools` on macOS, follow 
 
 It's recommended to use a virtual environment for isolation. If you don't already have a virtual environment, create and activate one:
 
-### a. Create a virtual environment:
+### Create and start virtual environment:
 
 ```bash
 python3 -m venv venv
 ```
-
-### b. Activate the virtual environment:
 
 ```bash
 source venv/bin/activate
@@ -46,7 +44,7 @@ pip install -r requirements.txt
 
 ```bash
 setup(
-    name="my_project",
+    name="astronomy_tyoes",
     version="0.2.0",  # Update this to the new version number
     ...
 )
@@ -64,4 +62,4 @@ python3 setup.py sdist bdist_wheel
 twine upload dist/*
 ```
 
-And enter in the API token
+And enter in the API token when prompted
