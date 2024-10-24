@@ -1,4 +1,4 @@
-from typing import NewType, Tuple, Union
+from typing import NewType, Tuple
 from enum import Enum
 
 class DaysOfWeek(str, Enum):
@@ -12,7 +12,7 @@ class DaysOfWeek(str, Enum):
 
 type Year = int
 type Month = int
-type Day = Union[int, float]
+type Day = int | float
 type Hour = int
 type Minutes = int
 type Seconds = float
@@ -31,8 +31,8 @@ FullDate = NewType('FullDate', Tuple[Date, Time])
 Declination = NewType('Declination', Degrees)
 HourAngle = NewType('HourAngle', Time)
 RightAscension = NewType('RightAscension', Time)
-Longitude = Union[Degrees, DecimalDegrees, Angle]
-Latitude =  Union[Degrees, DecimalDegrees, Angle]
+Longitude = Degrees | DecimalDegrees | Angle
+Latitude =  Degrees | DecimalDegrees | Angle
 Azimuth = NewType('Azimuth', Degrees)
 Altitude = NewType('Altitude', Degrees)
 GeographicCoordinates = NewType('GeographicCoordinates', Tuple[Latitude, Longitude])
