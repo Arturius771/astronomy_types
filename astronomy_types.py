@@ -20,7 +20,6 @@ type JulianDate = float
 type DecimalTime = float
 type Epoch = float
 type Angle = int
-type RightAscension = Time
 type DecimalDegrees = float
 type Obliquity = DecimalDegrees
 
@@ -31,6 +30,7 @@ Time = NewType('Time', Tuple[Hour, Minutes, Seconds])
 FullDate = NewType('FullDate', Tuple[Date, Time])
 Declination = NewType('Declination', Degrees)
 HourAngle = NewType('HourAngle', Time)
+RightAscension = NewType('RightAscension', Time)
 Longitude = Union[Degrees, DecimalDegrees, Angle]
 Latitude =  Union[Degrees, DecimalDegrees, Angle]
 Azimuth = NewType('Azimuth', Degrees)
