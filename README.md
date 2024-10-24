@@ -54,7 +54,7 @@ pip install -r requirements.txt
 
 ```bash
 setup(
-    name="astronomy_tyoes",
+    name="astronomy_types",
     version="0.2.0",  # Update this to the new version number
     ...
 )
