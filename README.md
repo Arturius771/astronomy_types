@@ -29,7 +29,7 @@ It's recommended to use a virtual environment for isolation. If you don't alread
 ### Create and start virtual environment:
 
 ```bash
-python3 -m venv venv
+python3 -m venv
 ```
 
 ```bash
