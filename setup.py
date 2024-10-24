@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="astronomy_types", 
-    version="1.0.1",
+    version="1.0.2",
     py_modules=["astronomy_types"],  # without .py
     author="Artur Foden",
     author_email="",
