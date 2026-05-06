@@ -128,6 +128,8 @@ Altitude = NewType("Altitude", Radians)
 
 Obliquity = NewType("Obliquity", Radians)
 
+GravitationalParameter = NewType("GravitationalParameter", float)
+
 
 @dataclass(frozen=True)
 class GeographicCoordinates:
@@ -170,10 +172,6 @@ class GalacticCoordinates:
 # ---------------------------------------------------------------------
 
 Inclination = NewType("Inclination", Radians)
-RightAscensionOfAscendingNode = NewType(
-    "RightAscensionOfAscendingNode",
-    Radians,
-)
 ArgumentOfPerigee = NewType("ArgumentOfPerigee", Radians)
 TrueAnomaly = NewType("TrueAnomaly", Radians)
 
@@ -184,7 +182,7 @@ Eccentricity = NewType("Eccentricity", float)
 @dataclass(frozen=True)
 class OrbitalElements:
     inclination: Inclination
-    right_ascension_of_ascending_node: RightAscensionOfAscendingNode
+    right_ascension_of_ascending_node: RightAscension
     argument_of_perigee: ArgumentOfPerigee
     semi_major_axis: SemiMajorAxis
     eccentricity: Eccentricity
