@@ -3,7 +3,37 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from math import radians
-from typing import NewType
+from typing import Generic, NewType, TypeVar
+
+T = TypeVar("T")
+
+# ---------------------------------------------------------------------
+# Physics
+# ---------------------------------------------------------------------
+
+# A quantity defined by a single value *and* a unit
+Scalar = NewType("Scalar", float)
+
+Distance = NewType("Distance", Scalar)
+Ratio = NewType("Ratio", Scalar)
+
+
+@dataclass(frozen=True)
+class Coordinate2D(Generic[T]):
+    x: T
+    y: T
+
+
+@dataclass(frozen=True)
+class Coordinate3D(Generic[T]):
+    x: T
+    y: T
+    z: T
+
+
+# ---------------------------------------------------------------------
+# Time
+# ---------------------------------------------------------------------
 
 
 class DaysOfWeek(str, Enum):
@@ -18,23 +48,22 @@ class DaysOfWeek(str, Enum):
 
 Year = NewType("Year", int)
 Month = NewType("Month", int)
-Day = NewType("Day", float)
+Day = NewType("Day", Scalar)
 
 Hour = NewType("Hour", int)
 Minute = NewType("Minute", int)
-Second = NewType("Second", float)
+Second = NewType("Second", Scalar)
 
-JulianDate = NewType("JulianDate", float)
-DecimalTime = NewType("DecimalTime", float)
+JulianDate = NewType("JulianDate", Scalar)
+DecimalTime = NewType("DecimalTime", Scalar)
 Epoch = NewType("Epoch", JulianDate)
-
 
 # ---------------------------------------------------------------------
 # Core angle representations
 # ---------------------------------------------------------------------
 
-Radians = NewType("Radians", float)
-Degrees = NewType("Degrees", float)
+Radians = NewType("Radians", Scalar)
+Degrees = NewType("Degrees", Scalar)
 
 
 @dataclass(frozen=True)
@@ -42,7 +71,6 @@ class DMS:
     """
     Degrees, arcminutes, arcseconds.
 
-    Used for input/output formatting, not for internal calculations.
     """
 
     degrees: int
@@ -64,14 +92,13 @@ class HMS:
 
 
 def degrees_to_radians(value: Degrees) -> Radians:
-    return Radians(radians(float(value)))
+    return Radians(Scalar(radians(float(value))))
 
 
 def dms_to_degrees(value: DMS) -> Degrees:
     sign = -1 if value.degrees < 0 else 1
-
     return Degrees(
-        sign * (abs(value.degrees) + value.minutes / 60 + value.seconds / 3600)
+        Scalar(sign * (abs(value.degrees) + value.minutes / 60 + value.seconds / 3600))
     )
 
 
@@ -80,7 +107,9 @@ def dms_to_radians(value: DMS) -> Radians:
 
 
 def hms_to_degrees(value: HMS) -> Degrees:
-    return Degrees(15 * (value.hours + value.minutes / 60 + value.seconds / 3600))
+    return Degrees(
+        Scalar(15 * (value.hours + value.minutes / 60 + value.seconds / 3600))
+    )
 
 
 def hms_to_radians(value: HMS) -> Radians:
@@ -113,58 +142,84 @@ class FullDate:
 
 
 # ---------------------------------------------------------------------
-# Semantic astronomy angle types
+# Semantic astronomy types
 # ---------------------------------------------------------------------
 
 Latitude = NewType("Latitude", Radians)
 Longitude = NewType("Longitude", Radians)
-
 Declination = NewType("Declination", Radians)
 HourAngle = NewType("HourAngle", Radians)
 RightAscension = NewType("RightAscension", Radians)
-
 Azimuth = NewType("Azimuth", Radians)
 Altitude = NewType("Altitude", Radians)
-
 Obliquity = NewType("Obliquity", Radians)
-
-GravitationalParameter = NewType("GravitationalParameter", float)
-
-
-@dataclass(frozen=True)
-class GeographicCoordinates:
-    latitude: Latitude
-    longitude: Longitude
+GravitationalParameter = NewType("GravitationalParameter", Scalar)
 
 
 @dataclass(frozen=True)
-class HorizontalCoordinates:
-    altitude: Altitude
-    azimuth: Azimuth
+class GeographicCoordinates(Coordinate2D[Radians]):
+    @property
+    def latitude(self) -> Latitude:
+        return Latitude(self.x)
+
+    @property
+    def longitude(self) -> Longitude:
+        return Longitude(self.y)
 
 
 @dataclass(frozen=True)
-class EquatorialCoordinatesHourAngle:
-    declination: Declination
-    hour_angle: HourAngle
+class HorizontalCoordinates(Coordinate2D[Radians]):
+    @property
+    def altitude(self) -> Altitude:
+        return Altitude(self.x)
+
+    @property
+    def azimuth(self) -> Azimuth:
+        return Azimuth(self.y)
 
 
 @dataclass(frozen=True)
-class EquatorialCoordinates:
-    declination: Declination
-    right_ascension: RightAscension
+class EquatorialCoordinatesHourAngle(Coordinate2D[Radians]):
+    @property
+    def declination(self) -> Declination:
+        return Declination(self.x)
+
+    @property
+    def hour_angle(self) -> HourAngle:
+        return HourAngle(self.y)
 
 
 @dataclass(frozen=True)
-class EclipticCoordinates:
-    latitude: Latitude
-    longitude: Longitude
+class EquatorialCoordinates(Coordinate2D[Radians]):
+    @property
+    def declination(self) -> Declination:
+        return Declination(self.x)
+
+    @property
+    def right_ascension(self) -> RightAscension:
+        return RightAscension(self.y)
 
 
 @dataclass(frozen=True)
-class GalacticCoordinates:
-    latitude: Latitude
-    longitude: Longitude
+class EclipticCoordinates(Coordinate2D[Radians]):
+    @property
+    def latitude(self) -> Latitude:
+        return Latitude(self.x)
+
+    @property
+    def longitude(self) -> Longitude:
+        return Longitude(self.y)
+
+
+@dataclass(frozen=True)
+class GalacticCoordinates(Coordinate2D[Radians]):
+    @property
+    def latitude(self) -> Latitude:
+        return Latitude(self.x)
+
+    @property
+    def longitude(self) -> Longitude:
+        return Longitude(self.y)
 
 
 # ---------------------------------------------------------------------
@@ -174,9 +229,8 @@ class GalacticCoordinates:
 Inclination = NewType("Inclination", Radians)
 ArgumentOfPerigee = NewType("ArgumentOfPerigee", Radians)
 TrueAnomaly = NewType("TrueAnomaly", Radians)
-
-SemiMajorAxis = NewType("SemiMajorAxis", float)
-Eccentricity = NewType("Eccentricity", float)
+SemiMajorAxis = NewType("SemiMajorAxis", Distance)
+Eccentricity = NewType("Eccentricity", Ratio)
 
 
 @dataclass(frozen=True)
