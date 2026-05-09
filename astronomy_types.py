@@ -11,12 +11,6 @@ T = TypeVar("T")
 # Physics
 # ---------------------------------------------------------------------
 
-# A quantity defined by a single value *and* a unit
-Scalar = NewType("Scalar", float)
-
-Distance = NewType("Distance", Scalar)
-Ratio = NewType("Ratio", Scalar)
-
 
 @dataclass(frozen=True)
 class Coordinate2D(Generic[T]):
@@ -29,6 +23,31 @@ class Coordinate3D(Generic[T]):
     x: T
     y: T
     z: T
+
+
+@dataclass(frozen=True)
+class Vector2D(Generic[T]):
+    x: T
+    y: T
+
+
+@dataclass(frozen=True)
+class Vector3D(Generic[T]):
+    x: T
+    y: T
+    z: T
+
+
+# A quantity defined by a single value *and* a unit
+Scalar = NewType("Scalar", float)
+Distance = NewType("Distance", Scalar)
+Ratio = NewType("Ratio", Scalar)
+Velocity = NewType("Velocity", Scalar)
+Acceleration = NewType("Acceleration", Scalar)
+Position = NewType("Position", Scalar)
+VelocityVector = Vector3D[Velocity]
+AccelerationVector = Vector3D[Acceleration]
+PositionVector = Vector3D[Position]
 
 
 # ---------------------------------------------------------------------
@@ -49,11 +68,9 @@ class DaysOfWeek(str, Enum):
 Year = NewType("Year", int)
 Month = NewType("Month", int)
 Day = NewType("Day", Scalar)
-
 Hour = NewType("Hour", int)
 Minute = NewType("Minute", int)
 Second = NewType("Second", Scalar)
-
 JulianDate = NewType("JulianDate", Scalar)
 DecimalTime = NewType("DecimalTime", Scalar)
 Epoch = NewType("Epoch", JulianDate)
@@ -70,7 +87,6 @@ Degrees = NewType("Degrees", Scalar)
 class DMS:
     """
     Degrees, arcminutes, arcseconds.
-
     """
 
     degrees: int
@@ -256,3 +272,9 @@ class RisingAndSetting:
 class NutationAndObliquity:
     nutation_longitude: Longitude
     nutation_obliquity: Obliquity
+
+
+@dataclass(frozen=True)
+class StateVectors:
+    position: PositionVector
+    velocity: VelocityVector
