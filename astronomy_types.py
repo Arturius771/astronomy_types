@@ -288,6 +288,8 @@ ArgumentOfPerigee = NewType("ArgumentOfPerigee", Radians)
 TrueAnomaly = NewType("TrueAnomaly", Radians)
 SemiMajorAxis = NewType("SemiMajorAxis", Distance)
 Eccentricity = NewType("Eccentricity", Ratio)
+SemiMinorAxis = NewType("SemiMinorAxis", Distance)
+# EccentricAnomaly todo
 
 
 @dataclass(frozen=True)
