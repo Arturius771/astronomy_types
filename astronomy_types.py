@@ -283,13 +283,18 @@ class GalacticCoordinates(Coordinate2D[Radians]):
 # Orbital element types
 # ---------------------------------------------------------------------
 
+# Describe the orbital ellipse:
 Inclination = NewType("Inclination", Radians)
 ArgumentOfPerigee = NewType("ArgumentOfPerigee", Radians)
-TrueAnomaly = NewType("TrueAnomaly", Radians)
 SemiMajorAxis = NewType("SemiMajorAxis", Distance)
 Eccentricity = NewType("Eccentricity", Ratio)
 SemiMinorAxis = NewType("SemiMinorAxis", Distance)
-EccentricAnomaly = NewType("EccentricAnomaly", Radians)
+
+# Describe the position on the ellipse:
+Anomaly = NewType("Anomaly", Radians)
+EccentricAnomaly = NewType("EccentricAnomaly", Anomaly)
+TrueAnomaly = NewType("TrueAnomaly", Anomaly)
+MeanAnomaly = NewType("MeanAnomaly", Anomaly)
 
 
 @dataclass(frozen=True)
