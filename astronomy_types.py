@@ -199,6 +199,12 @@ class FullDate:
 
 
 # ---------------------------------------------------------------------
+
+# ---------------------------------------------------------------------
+
+Rate = NewType("Rate", Scalar)
+
+# ---------------------------------------------------------------------
 # Semantic astronomy types
 # ---------------------------------------------------------------------
 
@@ -292,9 +298,17 @@ SemiMinorAxis = NewType("SemiMinorAxis", Distance)
 
 # Describe the position on the ellipse:
 Anomaly = NewType("Anomaly", Radians)
-EccentricAnomaly = NewType("EccentricAnomaly", Anomaly)
-TrueAnomaly = NewType("TrueAnomaly", Anomaly)
-MeanAnomaly = NewType("MeanAnomaly", Anomaly)
+EccentricAnomaly = NewType(
+    "EccentricAnomaly", Anomaly
+)  # Angle of object in its orbit relative to a fictional circular orbit from the centre of orbital ellipse
+TrueAnomaly = NewType(
+    "TrueAnomaly", Anomaly
+)  # Angle of object on orbit ellipse measured from the focus.
+MeanAnomaly = NewType(
+    "MeanAnomaly", Anomaly
+)  # Angle in which an object would move along a fictional circle in the same amount of time as the actual object.
+
+MeanMotion = NewType("MeanMotion", Rate)
 
 
 @dataclass(frozen=True)
