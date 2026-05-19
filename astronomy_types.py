@@ -49,6 +49,7 @@ Position = NewType("Position", Scalar)
 VelocityVector = Vector3D[Velocity]
 AccelerationVector = Vector3D[Acceleration]
 PositionVector = Vector3D[Position]
+Displacement = NewType("Displacement", Scalar)
 
 
 # ---------------------------------------------------------------------
