@@ -243,6 +243,7 @@ MeanAnomaly = NewType(
 )  # Angle in which an object would move along a fictional circle in the same amount of time as the actual object.
 
 MeanMotion = NewType("MeanMotion", Rate)
+SemiLatusRectum = NewType("SemiLatusRectum", Distance)
 
 
 @dataclass(frozen=True)
