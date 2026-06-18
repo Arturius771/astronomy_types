@@ -225,7 +225,7 @@ class GalacticCoordinates(Coordinate2D[Radians]):
 
 # Describe the orbital ellipse:
 Inclination = NewType("Inclination", Radians)
-ArgumentOfPerigee = NewType("ArgumentOfPerigee", Radians)
+ArgumentOfPeriapsis = NewType("ArgumentOfPeriapsis", Radians)
 SemiMajorAxis = NewType("SemiMajorAxis", Distance)
 Eccentricity = NewType("Eccentricity", Ratio)
 SemiMinorAxis = NewType("SemiMinorAxis", Distance)
@@ -250,7 +250,7 @@ SemiLatusRectum = NewType("SemiLatusRectum", Distance)
 class OrbitalElements:
     inclination: Inclination
     right_ascension_of_ascending_node: RightAscension
-    argument_of_perigee: ArgumentOfPerigee
+    argument_of_periapsis: ArgumentOfPeriapsis
     semi_major_axis: SemiMajorAxis
     eccentricity: Eccentricity
     true_anomaly: TrueAnomaly
