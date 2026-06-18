@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Generic, NewType, TypeVar
+from typing import Generic, NewType, TypeAlias, TypeVar
 
 T = TypeVar("T")
 
@@ -37,18 +37,17 @@ class Vector3D(Generic[T]):
     z: T
 
 
-# A quantity defined by a single value *and* a unit
 Scalar = NewType("Scalar", float)
 Distance = NewType("Distance", Scalar)
 Ratio = NewType("Ratio", Scalar)
 Velocity = NewType("Velocity", Scalar)
 Acceleration = NewType("Acceleration", Scalar)
 Position = NewType("Position", Scalar)
-VelocityVector = Vector3D[Velocity]
-AccelerationVector = Vector3D[Acceleration]
-PositionVector = Vector3D[Position]
 Displacement = NewType("Displacement", Scalar)
 
+VelocityVector: TypeAlias = Vector3D[Velocity]
+AccelerationVector: TypeAlias = Vector3D[Acceleration]
+PositionVector: TypeAlias = Vector3D[Position]
 
 # ---------------------------------------------------------------------
 # Time
@@ -81,6 +80,8 @@ Epoch = NewType("Epoch", JulianDate)
 
 Radians = NewType("Radians", Scalar)
 Degrees = NewType("Degrees", Scalar)
+
+Angle: TypeAlias = Radians | Degrees
 
 
 @dataclass(frozen=True)
@@ -133,35 +134,33 @@ class FullDate:
 
 
 # ---------------------------------------------------------------------
-
+# Semantic astronomy types
 # ---------------------------------------------------------------------
 
 Rate = NewType("Rate", Scalar)
 
-# ---------------------------------------------------------------------
-# Semantic astronomy types
-# ---------------------------------------------------------------------
+Latitude: TypeAlias = Angle
+Longitude: TypeAlias = Angle
 
-Latitude = NewType("Latitude", Radians)
-Longitude = NewType("Longitude", Radians)
 Declination = NewType("Declination", Radians)
 HourAngle = NewType("HourAngle", Radians)
 RightAscension = NewType("RightAscension", Radians)
 Azimuth = NewType("Azimuth", Radians)
 Altitude = NewType("Altitude", Radians)
 Obliquity = NewType("Obliquity", Radians)
+
 GravitationalParameter = NewType("GravitationalParameter", Scalar)
 
 
 @dataclass(frozen=True)
-class GeographicCoordinates(Coordinate2D[Radians]):
+class GeographicCoordinates(Coordinate2D[Angle]):
     @property
     def latitude(self) -> Latitude:
-        return Latitude(self.x)
+        return self.x
 
     @property
     def longitude(self) -> Longitude:
-        return Longitude(self.y)
+        return self.y
 
 
 @dataclass(frozen=True)
@@ -198,49 +197,41 @@ class EquatorialCoordinates(Coordinate2D[Radians]):
 
 
 @dataclass(frozen=True)
-class EclipticCoordinates(Coordinate2D[Radians]):
+class EclipticCoordinates(Coordinate2D[Angle]):
     @property
     def latitude(self) -> Latitude:
-        return Latitude(self.x)
+        return self.x
 
     @property
     def longitude(self) -> Longitude:
-        return Longitude(self.y)
+        return self.y
 
 
 @dataclass(frozen=True)
-class GalacticCoordinates(Coordinate2D[Radians]):
+class GalacticCoordinates(Coordinate2D[Angle]):
     @property
     def latitude(self) -> Latitude:
-        return Latitude(self.x)
+        return self.x
 
     @property
     def longitude(self) -> Longitude:
-        return Longitude(self.y)
+        return self.y
 
 
 # ---------------------------------------------------------------------
 # Orbital element types
 # ---------------------------------------------------------------------
 
-# Describe the orbital ellipse:
 Inclination = NewType("Inclination", Radians)
 ArgumentOfPeriapsis = NewType("ArgumentOfPeriapsis", Radians)
 SemiMajorAxis = NewType("SemiMajorAxis", Distance)
 Eccentricity = NewType("Eccentricity", Ratio)
 SemiMinorAxis = NewType("SemiMinorAxis", Distance)
 
-# Describe the position on the ellipse:
 Anomaly = NewType("Anomaly", Radians)
-EccentricAnomaly = NewType(
-    "EccentricAnomaly", Anomaly
-)  # Angle of object in its orbit relative to a fictional circular orbit from the centre of orbital ellipse
-TrueAnomaly = NewType(
-    "TrueAnomaly", Anomaly
-)  # Angle of object on orbit ellipse measured from the focus.
-MeanAnomaly = NewType(
-    "MeanAnomaly", Anomaly
-)  # Angle in which an object would move along a fictional circle in the same amount of time as the actual object.
+EccentricAnomaly = NewType("EccentricAnomaly", Anomaly)
+TrueAnomaly = NewType("TrueAnomaly", Anomaly)
+MeanAnomaly = NewType("MeanAnomaly", Anomaly)
 
 MeanMotion = NewType("MeanMotion", Rate)
 SemiLatusRectum = NewType("SemiLatusRectum", Distance)
