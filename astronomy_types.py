@@ -45,9 +45,13 @@ Acceleration = NewType("Acceleration", Scalar)
 Position = NewType("Position", Scalar)
 Displacement = NewType("Displacement", Scalar)
 
-VelocityVector: TypeAlias = Vector3D[Velocity]
 AccelerationVector: TypeAlias = Vector3D[Acceleration]
+
+# Measures an offset from origin (eg. a satellite relative to the Earth) in some reference frame. In orbital mechanics, the magnitude of the position vector is the orbital radius.
 PositionVector: TypeAlias = Vector3D[Position]
+
+# Measures the rate of change of a position vector in a reference frame.
+VelocityVector: TypeAlias = Vector3D[Velocity]
 
 # ---------------------------------------------------------------------
 # Time
