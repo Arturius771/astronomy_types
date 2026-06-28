@@ -7,7 +7,7 @@ from typing import Generic, NewType, TypeAlias, TypeVar
 T = TypeVar("T")
 
 # ---------------------------------------------------------------------
-# Physics
+# region Physics
 # ---------------------------------------------------------------------
 
 
@@ -54,7 +54,7 @@ PositionVector: TypeAlias = Vector3D[Position]
 VelocityVector: TypeAlias = Vector3D[Velocity]
 
 # ---------------------------------------------------------------------
-# Time
+# region Time
 # ---------------------------------------------------------------------
 
 
@@ -79,7 +79,7 @@ DecimalTime = NewType("DecimalTime", Scalar)
 Epoch = NewType("Epoch", JulianDate)
 
 # ---------------------------------------------------------------------
-# Core angle representations
+# region Core angle representations
 # ---------------------------------------------------------------------
 
 Radians = NewType("Radians", Scalar)
@@ -113,7 +113,7 @@ class HMS:
 
 
 # ---------------------------------------------------------------------
-# Date and time structures
+# region Date and time structures
 # ---------------------------------------------------------------------
 
 
@@ -138,7 +138,7 @@ class FullDate:
 
 
 # ---------------------------------------------------------------------
-# Semantic astronomy types
+# region Semantic astronomy types
 # ---------------------------------------------------------------------
 
 Rate = NewType("Rate", Scalar)
@@ -223,7 +223,7 @@ class GalacticCoordinates(Coordinate2D[Angle]):
 
 
 # ---------------------------------------------------------------------
-# Orbital element types
+# region Orbital element types
 # ---------------------------------------------------------------------
 
 Inclination = NewType("Inclination", Radians)
@@ -267,6 +267,6 @@ class NutationAndObliquity:
 
 
 @dataclass(frozen=True)
-class StateVectors:
+class StateVector:
     position: PositionVector
     velocity: VelocityVector
